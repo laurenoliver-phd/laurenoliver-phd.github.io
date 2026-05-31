@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lauren A. Oliver</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --sage:#3d6b4f;--sage-light:#e6efe9;--sage-mid:#7aab8a;--sage-dark:#2a4d38;
+  --slate:#263d4a;--slate-light:#e2eaee;
+  --gold:#b8922a;--gold-light:#f4ead6;--gold-pale:#fdf7ec;
+  --ink:#161c1f;--paper:#f6f4ef;--white:#ffffff;
+  --muted:#657580;--border:#dde3e7;--border-light:#edf0f2;
+  --serif:'Playfair Display',Georgia,serif;
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'IBM Plex Sans',system-ui,sans-serif;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;line-height:1.6}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(246,244,239,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:54px}
+.nav-name{font-family:var(--serif);font-size:1rem;color:var(--ink);cursor:pointer;font-weight:600}
+.nav-links{display:flex;gap:0;align-items:center}
+.nav-link{font-size:0.72rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);cursor:pointer;padding:0.35rem 0.8rem;border-radius:4px;transition:all 0.12s;font-weight:500;border:none;background:none;font-family:var(--sans)}
+.nav-link:hover{color:var(--ink)}
+.nav-link.active{color:var(--sage);font-weight:600}
+.nav-cta{font-size:0.7rem;letter-spacing:0.07em;text-transform:uppercase;background:var(--sage);color:white;border:none;padding:0.4rem 0.9rem;border-radius:4px;cursor:pointer;font-family:var(--sans);font-weight:600;margin-left:0.5rem;transition:background 0.12s}
+.nav-cta:hover{background:var(--slate)}
+.page{display:none;padding-top:54px;min-height:100vh}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.page.active>*{animation:fadeUp 0.3s ease}
+.wrap{max-width:820px;margin:0 auto;padding:3.5rem 2.5rem 6rem}
+.eyebrow{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:0.75rem}
+.page-title{font-family:var(--serif);font-size:clamp(1.9rem,4vw,3rem);color:var(--ink);line-height:1.08;margin-bottom:2rem;font-weight:600}
+.page-title em{color:var(--sage);font-style:italic}
+.divider{height:1px;background:var(--border);margin:2.5rem 0}
+.lede{font-size:1rem;color:var(--muted);line-height:1.8;max-width:620px;margin-bottom:2rem}
+.callout{border-left:3px solid var(--sage);padding:1.1rem 1.4rem;background:var(--sage-light);border-radius:0 8px 8px 0;margin:1.75rem 0;font-size:0.92rem;line-height:1.75;color:var(--ink)}
+.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1.25rem}
+.btn{font-size:0.72rem;letter-spacing:0.07em;text-transform:uppercase;font-weight:600;padding:0.6rem 1.25rem;border-radius:5px;cursor:pointer;transition:all 0.12s;font-family:var(--sans)}
+.btn-sage{background:var(--sage);color:white;border:none}
+.btn-sage:hover{background:var(--sage-dark)}
+.btn-outline{background:transparent;color:var(--ink);border:1px solid var(--border)}
+.btn-outline:hover{border-color:var(--ink)}
+.btn-outline-white{background:transparent;color:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.3)}
+.btn-outline-white:hover{color:white;border-color:white}
+.section-rule{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem}
+.section-rule::after{content:'';flex:1;height:1px;background:var(--border)}
+.home-inner{max-width:560px;margin:0 auto;padding:4rem 2.5rem 6rem;display:flex;flex-direction:column;align-items:center;text-align:center}
+.home-photo{width:222px;height:222px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;flex-shrink:0;overflow:hidden}
+.home-photo img{width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(0.85);transform-origin:center}
+.home-name{font-family:var(--serif);font-size:2.5rem;line-height:1.05;color:var(--ink);margin-bottom:0.4rem;font-weight:600}
+.home-name em{color:var(--sage);font-style:italic;display:block}
+.home-title{font-size:1rem;color:var(--slate);line-height:1.7;margin-bottom:1.25rem;max-width:460px;font-weight:500}
+.home-explore{font-size:0.85rem;color:var(--muted);line-height:1.7;margin-bottom:2rem;max-width:440px;background:var(--sage-light);border:1px solid #c2d9cb;border-radius:8px;padding:0.9rem 1.1rem}
+.home-explore strong{color:var(--sage-dark)}
+.home-btns{display:flex;gap:0.6rem;flex-wrap:wrap;justify-content:center;margin-bottom:2.5rem}
+.skills-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted);font-weight:600;margin-bottom:0.75rem}
+.skill-pills{display:flex;flex-wrap:wrap;gap:0.4rem;justify-content:center}
+.pill{font-size:0.72rem;padding:0.28rem 0.75rem;border-radius:20px;font-weight:500;background:var(--sage-light);color:var(--sage-dark);border:1px solid #c2d9cb}
+.home-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:1.75rem;width:100%}
+.stat{padding:0.9rem 1rem;background:var(--paper)}
+.stat:nth-child(even){background:var(--white)}
+.stat-label{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);font-weight:600;margin-bottom:0.15rem}
+.stat-val{font-size:0.82rem;color:var(--ink);font-weight:500;line-height:1.3}
+.mission{font-family:var(--serif);font-size:1.2rem;line-height:1.75;color:var(--slate);margin-bottom:2rem;font-style:italic}
+.landscape-photo{width:100%;aspect-ratio:16/9;background:var(--border-light);border:2px dashed var(--border);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4rem;color:var(--muted);margin-bottom:2.5rem;overflow:hidden}
+.landscape-photo img{width:100%;height:100%;object-fit:cover}
+.milestones{display:flex;flex-direction:column;gap:0}
+.ms-item{display:grid;grid-template-columns:72px 1fr;gap:0;position:relative}
+.ms-item:not(:last-child) .ms-left::after{content:'';position:absolute;left:35px;top:22px;bottom:-8px;width:1px;background:var(--border)}
+.ms-left{display:flex;flex-direction:column;align-items:center;padding-top:3px;position:relative}
+.ms-dot{width:16px;height:16px;border-radius:50%;background:var(--white);border:2px solid var(--sage);z-index:1;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.ms-dot-inner{width:5px;height:5px;border-radius:50%;background:var(--sage)}
+.ms-year{font-family:var(--mono);font-size:0.62rem;color:var(--muted);margin-top:0.35rem;text-align:center}
+.tl-line{flex:1;width:1px;background:var(--border);margin-top:0.5rem}
+.ms-right{padding:0 0 2.25rem 1.5rem}
+.ms-tag{display:inline-block;font-size:0.63rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.5rem;border-radius:3px;font-weight:600;margin-bottom:0.5rem}
+.ms-right h3{font-family:var(--serif);font-size:1.1rem;color:var(--ink);margin-bottom:0.4rem;font-weight:600;line-height:1.25}
+.ms-right p{font-size:0.88rem;color:var(--muted);line-height:1.8}
+.ms-right p strong{color:var(--ink)}
+.headed-box{background:var(--slate);color:white;border-radius:10px;padding:2rem 2.25rem;margin:0}
+.headed-box h3{font-family:var(--serif);font-size:1.3rem;margin-bottom:0.75rem;color:white;font-weight:600}
+.headed-box p{color:rgba(255,255,255,0.85);line-height:1.8;margin-bottom:0.75rem;font-size:0.92rem}
+.headed-box p:last-child{margin-bottom:0}
+.carousel{position:relative;margin-top:0}
+.carousel-track{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:0.5rem}
+.carousel-track::-webkit-scrollbar{display:none}
+.carousel-slide{flex:0 0 380px;scroll-snap-align:start;border-radius:10px;overflow:hidden;background:var(--border-light);border:2px dashed var(--border);aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4rem;color:var(--muted)}
+.carousel-slide img{width:100%;height:100%;object-fit:cover}
+.carousel-nav{display:flex;gap:0.5rem;margin-top:0.85rem;justify-content:center}
+.carousel-btn{width:7px;height:7px;border-radius:50%;background:var(--border);border:none;cursor:pointer;padding:0;transition:background 0.15s}
+.carousel-btn.active{background:var(--sage)}
+.personal-snippet{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem}
+.personal-snippet p{font-size:0.9rem;color:var(--muted);line-height:1.8;margin-bottom:0.8rem}
+.personal-snippet p:last-child{margin-bottom:0}
+.interests-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.1rem;margin-bottom:1.25rem}
+.interest-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.5rem}
+.interest-card h3{font-family:var(--serif);font-size:1rem;color:var(--ink);margin-bottom:0.5rem;font-weight:600;line-height:1.3}
+.interest-card p{font-size:0.85rem;color:var(--muted);line-height:1.75}
+.interest-icon{font-size:1.1rem;margin-bottom:0.6rem;color:var(--sage)}
+.interest-card.featured{background:var(--sage-light);border:2px solid #b8d4c0}
+.interest-card.featured h3{color:var(--sage-dark);font-size:1.1rem}
+.interest-card.featured p{color:var(--slate)}
+.interest-card.featured .interest-icon{color:var(--sage)}
+.dissertation-box{background:var(--slate);border:1px solid var(--slate);border-radius:10px;padding:2rem;margin-bottom:1.25rem}
+.dissertation-box h3{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#e8d8a0;font-weight:700;margin-bottom:0.6rem}
+.dissertation-box h4{font-family:var(--serif);font-size:1.15rem;color:white;margin-bottom:0.5rem;font-weight:600}
+.dissertation-box p{font-size:0.87rem;color:rgba(255,255,255,0.78);line-height:1.78;margin-bottom:0.5rem}
+.dissertation-box p:last-child{margin-bottom:0}
+.work-toggle{display:flex;gap:0;border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:2rem;width:fit-content}
+.toggle-btn{font-size:0.72rem;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;padding:0.45rem 1rem;border:none;background:none;cursor:pointer;font-family:var(--sans);color:var(--muted);transition:all 0.12s}
+.toggle-btn.active{background:var(--sage);color:white}
+.work-cards{display:flex;flex-direction:column;gap:1.1rem}
+.work-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.5rem 1.75rem;transition:border-color 0.15s,transform 0.15s}
+.work-card:hover{border-color:var(--sage-mid);transform:translateY(-1px)}
+.wc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.4rem;gap:1rem}
+.wc-org{font-size:0.75rem;color:var(--sage);font-weight:600;text-transform:uppercase;letter-spacing:0.06em}
+.wc-year{font-family:var(--mono);font-size:0.72rem;color:var(--muted);white-space:nowrap}
+.work-card h3{font-family:var(--serif);font-size:1.05rem;color:var(--ink);margin-bottom:0.4rem;font-weight:600;line-height:1.3}
+.work-card p{font-size:0.86rem;color:var(--muted);line-height:1.78}
+.wc-tags{display:flex;gap:0.3rem;flex-wrap:wrap;margin-top:1rem}
+.wc-tag{font-size:0.63rem;padding:0.15rem 0.5rem;border-radius:3px;background:var(--sage-light);color:var(--sage-dark);font-weight:600;letter-spacing:0.04em;text-transform:uppercase}
+.hard-skills{display:grid;grid-template-columns:repeat(3,1fr);gap:0.65rem;margin-top:0.75rem}
+.skill-item{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:0.8rem 0.9rem}
+.skill-item-label{font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);font-weight:600;margin-bottom:0.25rem}
+.skill-item-val{font-size:0.82rem;color:var(--ink);font-weight:500;line-height:1.4}
+.examples-row{display:flex;flex-direction:column;gap:0.75rem;margin-top:1.25rem}
+.example-item{display:flex;gap:0.9rem;padding:1rem 1.1rem;background:var(--paper);border-radius:8px;border:1px solid var(--border-light);align-items:flex-start}
+.example-bullet{width:26px;height:26px;border-radius:50%;background:var(--gold-light);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.62rem;font-weight:500;color:var(--gold);margin-top:2px}
+.example-text strong{display:block;font-size:0.86rem;color:var(--ink);margin-bottom:0.2rem;font-weight:600}
+.example-text p{font-size:0.82rem;color:var(--muted);line-height:1.68}
+.cv-dl-row{display:flex;gap:1rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.cv-dl-card{display:flex;align-items:center;gap:0.75rem;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1rem 1.5rem;cursor:pointer;transition:border-color 0.12s;flex:1;min-width:200px;text-decoration:none}
+.cv-dl-card:hover{border-color:var(--sage)}
+.cv-dl-icon{font-size:1.2rem;color:var(--sage)}
+.cv-dl-info strong{display:block;font-size:0.86rem;font-weight:600;color:var(--ink)}
+.cv-dl-info span{font-size:0.76rem;color:var(--muted)}
+.cv-block{margin-bottom:2.25rem}
+.cv-block-title{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.18em;color:var(--gold);font-weight:700;margin-bottom:0.9rem;padding-bottom:0.45rem;border-bottom:1px solid var(--border)}
+.cv-row{display:grid;grid-template-columns:100px 1fr;gap:1.1rem;margin-bottom:1.1rem;align-items:start}
+.cv-row-year{font-family:var(--mono);font-size:0.7rem;color:var(--muted);padding-top:0.15rem;line-height:1.4}
+.cv-row-body h4{font-size:0.88rem;font-weight:600;color:var(--ink);margin-bottom:0.1rem}
+.cv-row-body .cv-org{font-size:0.8rem;color:var(--sage);font-weight:500;margin-bottom:0.35rem}
+.cv-row-body p{font-size:0.8rem;color:var(--muted);line-height:1.6}
+.teaching-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.5rem}
+.teaching-list li{font-size:0.8rem;color:var(--muted);line-height:1.5;padding-left:1rem;position:relative}
+.teaching-list li::before{content:'\2014';position:absolute;left:0;color:var(--border)}
+.teaching-list li em{color:var(--muted)}
+.pub-entry{margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border-light)}
+.pub-entry:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.pub-title{font-size:0.86rem;font-weight:600;color:var(--ink);margin-bottom:0.15rem;line-height:1.4}
+.pub-authors{font-size:0.78rem;color:var(--muted);margin-bottom:0.15rem}
+.pub-journal{font-size:0.78rem;color:var(--sage);font-weight:500}
+.pub-doi a{font-size:0.72rem;color:var(--muted);font-family:var(--mono)}
+.tabs-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.5rem}
+.tabs-updated{font-size:0.72rem;font-family:var(--mono);color:var(--muted)}
+.tabs-grid{display:flex;flex-direction:column;gap:0.9rem;margin-bottom:2rem}
+.tab-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.25rem 1.5rem;display:flex;gap:1.1rem;align-items:flex-start;transition:border-color 0.15s}
+.tab-card:hover{border-color:var(--sage-mid)}
+.tab-icon{width:34px;height:34px;border-radius:7px;background:var(--sage-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.7rem;font-weight:700;color:var(--sage-dark);font-family:var(--mono)}
+.tab-source{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);font-weight:600;margin-bottom:0.15rem}
+.tab-title{font-size:0.92rem;font-weight:600;color:var(--ink);margin-bottom:0.35rem;line-height:1.3}
+.tab-title a{color:var(--ink);text-decoration:none}
+.tab-title a:hover{color:var(--sage)}
+.tab-note{font-size:0.82rem;color:var(--muted);line-height:1.65;font-style:italic}
+.tab-tag{display:inline-block;font-size:0.62rem;padding:0.12rem 0.45rem;border-radius:3px;background:var(--gold-light);color:#7a5f1a;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-top:0.5rem}
+footer{background:var(--slate);color:rgba(255,255,255,0.55);padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-items:center;font-size:0.74rem}
+footer a{color:rgba(255,255,255,0.75);text-decoration:none}
+footer a:hover{color:white}
+.footer-right{display:flex;gap:1.5rem}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name" onclick="showPage('home')">Lauren A. Oliver</span>
+  <div class="nav-links">
+    <button class="nav-link" onclick="showPage('about')">About</button>
+    <button class="nav-link" onclick="showPage('projects')">Projects</button>
+    <button class="nav-link" onclick="showPage('cv')">CV</button>
+    <button class="nav-link" onclick="showPage('reading')">Open Tabs</button>
+    <button class="nav-cta" onclick="window.location.href='mailto:lauren.oliver@yale.edu'">Work with me</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="home-inner">
+    <div class="home-photo">
+      <img src="headshot.jpg" alt="Lauren A. Oliver">
+    </div>
+    <h1 class="home-name">Lauren A.<em>Oliver</em></h1>
+    <p class="home-title">Environmental economist, evaluator, and policy strategist. I work at the intersection of quantitative analysis and real-world decisions across energy, climate, and natural resource systems.</p>
+    <div class="home-explore"><strong>Currently exploring</strong> opportunities across consulting, industry, and climate-tech, with a particular interest in using data and strategy to accelerate the adoption of low-carbon solutions.</div>
+    <div class="home-btns">
+      <button class="btn btn-sage" onclick="showPage('about')">About</button>
+      <button class="btn btn-outline" onclick="showPage('projects')">Projects</button>
+      <button class="btn btn-outline" onclick="showPage('cv')">CV</button>
+    </div>
+    <div class="skills-label">Skills</div>
+    <div class="skill-pills">
+      <span class="pill">Impact Evaluation</span>
+      <span class="pill">M&amp;E Strategy</span>
+      <span class="pill">Policy Analysis</span>
+      <span class="pill">Sustainable Finance</span>
+      <span class="pill">Causal Inference</span>
+      <span class="pill">Data &amp; Research</span>
+      <span class="pill">Consulting</span>
+    </div>
+    <div class="home-stats">
+      <div class="stat"><div class="stat-label">Based</div><div class="stat-val">New Haven, CT</div></div>
+      <div class="stat"><div class="stat-label">Available for</div><div class="stat-val">Consulting &amp; full-time</div></div>
+      <div class="stat"><div class="stat-label">Background</div><div class="stat-val">Engineering &middot; Aid &middot; Policy</div></div>
+      <div class="stat"><div class="stat-label">Contact</div><div class="stat-val">lauren.oliver@yale.edu</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="about" class="page">
+  <div class="wrap">
+    <div class="eyebrow">About</div>
+    <h2 class="page-title">Lauren A. <em>Oliver</em></h2>
+
+    <p class="mission">I am fascinated by the gap between promising ideas and real-world impact. Through research and practice, I study how decisions are made&mdash;and why some solutions succeed while others struggle to take hold.</p>
+
+    <div class="landscape-photo">
+      <img src="colorado.jpg" alt="Colorado landscape">
+    </div>
+
+    <div class="section-rule">Career Milestones</div>
+    <div class="milestones">
+
+      <div class="ms-item">
+        <div class="ms-left"><div class="ms-dot"><div class="ms-dot-inner"></div></div><div class="ms-year">2018</div><div class="tl-line"></div></div>
+        <div class="ms-right">
+          <div class="ms-tag" style="background:var(--slate-light);color:var(--slate)">Engineering</div>
+          <h3>Civil Engineering, Santa Clara University</h3>
+          <p>I left high school knowing I wanted to work in natural resources and do something good in the world, but not knowing what. My father&rsquo;s advice was to &ldquo;<strong>do the hardest thing</strong>&rdquo; and establish a strong technical foundation from which I could build my career. It was great advice.</p>
+        </div>
+      </div>
+
+      <div class="ms-item">
+        <div class="ms-left"><div class="ms-dot"><div class="ms-dot-inner"></div></div><div class="ms-year">2017&ndash;19</div><div class="tl-line"></div></div>
+        <div class="ms-right">
+          <div class="ms-tag" style="background:#f0edf8;color:#4a3080">Social Entrepreneurship</div>
+          <h3>An introduction to social entrepreneurship</h3>
+          <p>Going to school in the Bay Area meant constant exposure to the start-up world. For me, that took shape through work with the <a href="https://millercenterglobal.org" target="_blank" style="color:var(--sage)">Miller Center for Global Impact</a>, an accelerator supporting social enterprises around the world. I conducted market research in Uganda and helped launch an online program for last-mile delivery businesses working to expand access to life-saving technologies in the Global South.</p>
+          <p style="margin-top:0.6rem">After graduation, I spent a gap year at <a href="https://www.patagonia.com" target="_blank" style="color:var(--sage)">Patagonia</a>, where I saw another model for mission-driven work in practice.</p>
+          <p style="margin-top:0.6rem">Together, those experiences reshaped how I think about sustainability &mdash; not just as environmental stewardship, but as the <strong>ability to build organizations that can survive, grow, and keep delivering impact over time</strong>. Profit can even play a role, not as something at odds with impact, but often what makes long-term impact possible.</p>
+        </div>
+      </div>
+
+      <div class="ms-item">
+        <div class="ms-left"><div class="ms-dot"><div class="ms-dot-inner"></div></div><div class="ms-year">2019</div><div class="tl-line"></div></div>
+        <div class="ms-right">
+          <div class="ms-tag" style="background:#fdf0e8;color:#7a3a10">Field Work</div>
+          <h3>Peace Corps, Benin</h3>
+          <p>I joined the <a href="https://www.peacecorps.gov" target="_blank" style="color:var(--sage)">Peace Corps</a> because I wanted to understand the realities of development work firsthand. I learned French, lived in a rural village in Benin, and was welcomed by an extraordinary host family and community. The experience forced me to confront the <strong>complexity of poverty, climate vulnerability, and the systems that can unintentionally stall progress</strong>.</p>
+          <p style="margin-top:0.6rem">My service ended abruptly in 2020 due to COVID-19, and in many ways it has never felt fully complete. Even so, my time in Benin continues to shape both my research and my sense of responsibility. Much of my work is still driven by a desire to contribute, in some meaningful way, to a better future for the people and communities who welcomed me there.</p>
+        </div>
+      </div>
+
+      <div class="ms-item">
+        <div class="ms-left"><div class="ms-dot"><div class="ms-dot-inner"></div></div><div class="ms-year">2020</div><div class="tl-line"></div></div>
+        <div class="ms-right">
+          <div class="ms-tag" style="background:var(--sage-light);color:var(--sage-dark)">Global Policy</div>
+          <h3>Policy and Sustainable Development, University of Notre Dame</h3>
+          <p>Anyone who wants to create meaningful change needs to understand policy. That is what brought me to the <a href="https://keough.nd.edu" target="_blank" style="color:var(--sage)">Keough School of Global Affairs</a> at the University of Notre Dame, where I learned how to evaluate, design, and communicate policy across sectors and institutions.</p>
+          <p style="margin-top:0.6rem"><strong>Not a day goes by that I don&rsquo;t use my policy training.</strong> Whether I am conducting research, teaching, analyzing markets, or simply writing emails, my policy background shapes how I think about incentives, institutions, and the gap between good ideas and real-world implementation.</p>
+        </div>
+      </div>
+
+      <div class="ms-item">
+        <div class="ms-left"><div class="ms-dot"><div class="ms-dot-inner"></div></div><div class="ms-year">2022&ndash;</div></div>
+        <div class="ms-right" style="padding-bottom:0">
+          <div class="ms-tag" style="background:var(--gold-light);color:#7a5f1a">PhD &middot; Yale</div>
+          <h3>Yale School of the Environment</h3>
+          <p>I chose the <a href="https://environment.yale.edu" target="_blank" style="color:var(--sage)">Yale School of the Environment</a> because I wanted to pursue <strong>research that could help unlock practical solutions</strong> while preparing me to lead in the environmental sector. During my time at Yale, I have strengthened my analytical training through coursework in political science and economics, developed my communication and teaching skills as a teaching fellow, and worked closely with the <a href="https://cbey.yale.edu" target="_blank" style="color:var(--sage)">Yale Center for Business and the Environment</a> to connect ideas to real-world implementation.</p>
+          <p style="margin-top:0.6rem">Along the way, I discovered a new outlet for my interests beyond the development aid sector: the energy and climate space. What drew me in was the combination of urgency, innovation, and complexity. It is a field that demands technical analysis, strategic thinking, communication, and policy fluency all at once &mdash; exactly the kind of work I want to be doing.</p>
+          <p style="margin-top:0.6rem">Beginning in 2026, I am excited to return more directly to the world of business strategy and startups through new collaborations with <a href="https://ventures.yale.edu" target="_blank" style="color:var(--sage)">Yale Ventures</a> and <a href="https://planetarysolutions.yale.edu" target="_blank" style="color:var(--sage)">Yale Planetary Solutions</a>.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="headed-box">
+      <h3>Where I&rsquo;m headed</h3>
+      <p>After my PhD, I am headed to industry, but I don&rsquo;t have a single job title in mind&mdash;and that&rsquo;s intentional. Over the past decade, I&rsquo;ve worked across engineering, development, policy, and research, and I&rsquo;ve found that I&rsquo;m most energized by problems that require bringing those perspectives together.</p>
+      <p>I&rsquo;m exploring opportunities across climate, energy, sustainability, and strategy. What matters most to me is working on solutions that make sense economically, improve people&rsquo;s lives, and can be deployed at the scale the future demands. I believe the most durable and impactful solutions are those that balance all three, and that is where I want to focus my career.</p>
+      <div class="btn-row">
+        <button class="btn" style="background:white;color:var(--sage);border:none;font-family:var(--sans)" onclick="window.location.href='mailto:lauren.oliver@yale.edu'">Get in touch</button>
+        <button class="btn btn-outline-white" onclick="showPage('projects')">See my work</button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-rule">On a personal note</div>
+    <div class="personal-snippet">
+      <p>I grew up between Arizona and Colorado, and those places still feel like home. I moved to Connecticut in 2022 for my PhD and decided to stay after meeting my fianc&eacute;, Rohan (a Connecticut native), during my first week at Yale. These days, our lives revolve around building our careers and obsessing over our border collie&ndash;poodle mix, Tala.</p>
+      <p>Most weekends you&rsquo;ll find me trail running, swimming in a lake, or trying a new local brewery. I care deeply about my work, but some of my happiest moments are the simple ones spent outdoors with the people and dog I love most.</p>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-rule">Photos</div>
+    <div class="carousel">
+      <div class="carousel-track" id="carousel">
+        <div class="carousel-slide"><img src="field-photo-1.jpg" alt="Field photo"></div>
+        <div class="carousel-slide"><img src="field-photo-2.jpg" alt="Field photo"></div>
+        <div class="carousel-slide"><img src="tala.jpg" alt="Tala"></div>
+        <div class="carousel-slide"><img src="field-photo-3.jpg" alt="Photo"></div>
+      </div>
+      <div class="carousel-nav">
+        <button class="carousel-btn active" onclick="scrollCarousel(0)"></button>
+        <button class="carousel-btn" onclick="scrollCarousel(1)"></button>
+        <button class="carousel-btn" onclick="scrollCarousel(2)"></button>
+        <button class="carousel-btn" onclick="scrollCarousel(3)"></button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div id="projects" class="page">
+  <div class="wrap">
+    <div class="eyebrow">Projects</div>
+    <h2 class="page-title">The work &amp; the<br><em>thinking behind it</em></h2>
+
+    <div class="section-rule">What I think about</div>
+    <div class="interests-grid">
+      <div class="interest-card">
+        <div class="interest-icon">&#9672;</div>
+        <h3>How do we know we&rsquo;re making progress?</h3>
+        <p>The world is increasingly driven by data, and that&rsquo;s generally a good thing. But metrics are only useful if they are connected to the outcomes we actually care about. Much of my work involves thinking carefully about what is being measured, what isn&rsquo;t, and how those choices influence the decisions that follow.</p>
+      </div>
+      <div class="interest-card">
+        <div class="interest-icon">&#8853;</div>
+        <h3>Where do models break down?</h3>
+        <p>All models are wrong, some models are useful. This is especially true when we try to model complex, interdependent systems. I&rsquo;m interested in understanding where common assumptions stop matching reality and what happens when they do. Whether the topic is development, climate, or energy, the biggest surprises often come from the gap between how we expect a system to behave and how people and resources actually behave within it.</p>
+      </div>
+      <div class="interest-card featured">
+        <div class="interest-icon">&#10753;</div>
+        <h3>What makes a good idea last?</h3>
+        <p>The solutions that create lasting impact are usually those supported by real incentives, not just good intentions. I&rsquo;m particularly interested in understanding how environmental and social goals can align with economic value&mdash;and how to build the business case that allows promising ideas to scale.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-rule">Projects I&rsquo;d Love to Work On</div>
+    <p style="font-size:0.9rem;color:var(--muted);line-height:1.78;max-width:620px;margin-bottom:1.5rem">The kinds of problems I&rsquo;m most excited to take on next &mdash; through a full-time role, research collaboration, or consulting engagement.</p>
+    <div class="examples-row">
+      <div class="example-item">
+        <div class="example-bullet">01</div>
+        <div class="example-text">
+          <strong>Measuring climate impact</strong>
+          <p>How do we know whether a carbon credit, sustainability initiative, or environmental program is actually delivering the outcomes it claims? I&rsquo;m interested in measurement, verification, impact evaluation, and the design of metrics that drive better decisions.</p>
+        </div>
+      </div>
+      <div class="example-item">
+        <div class="example-bullet">02</div>
+        <div class="example-text">
+          <strong>Financing the energy transition</strong>
+          <p>What prevents promising energy and climate solutions from attracting investment? I&rsquo;m interested in the intersection of technology, policy, risk, and finance, particularly the barriers that determine whether innovations scale.</p>
+        </div>
+      </div>
+      <div class="example-item">
+        <div class="example-bullet">03</div>
+        <div class="example-text">
+          <strong>Building durable climate policy</strong>
+          <p>How can environmental policies survive changes in political leadership, market conditions, and public opinion? I&rsquo;m interested in solutions that align incentives across stakeholders and remain effective over the long term.</p>
+        </div>
+      </div>
+      <div class="example-item">
+        <div class="example-bullet">04</div>
+        <div class="example-text">
+          <strong>Scaling innovation</strong>
+          <p>Many technologies work in theory but struggle in practice. I&rsquo;m interested in the gap between technical feasibility and real-world adoption, whether the challenge is regulation, economics, market design, or public acceptance.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-rule">Selected Work</div>
+
+    <div class="work-toggle">
+      <button class="toggle-btn active" onclick="toggleWork('all',this)">All</button>
+      <button class="toggle-btn" onclick="toggleWork('consulting',this)">Consulting</button>
+      <button class="toggle-btn" onclick="toggleWork('research',this)">Research</button>
+      <button class="toggle-btn" onclick="toggleWork('teaching',this)">Teaching</button>
+    </div>
+
+    <div class="work-cards">
+      <div class="work-card" data-cat="consulting teaching">
+        <div class="wc-top"><div class="wc-org">CBEY, Yale</div><div class="wc-year">2023&ndash;2026</div></div>
+        <h3>Making clean energy legible across disciplines</h3>
+        <p>Content strategy and curriculum development for a 10-month online certificate in clean energy for 120 mid-career professionals. The challenge was translation &mdash; making financial logic legible to engineers, technical constraints legible to financiers, policy tradeoffs legible to everyone. Managed the full content lifecycle and a 6-person TA team.</p>
+        <div class="wc-tags"><span class="wc-tag">Clean Energy</span><span class="wc-tag">Curriculum Design</span><span class="wc-tag">Program Management</span></div>
+      </div>
+      <div class="work-card" data-cat="consulting research">
+        <div class="wc-top"><div class="wc-org">UNDP &mdash; New York</div><div class="wc-year">2023&ndash;2024</div></div>
+        <h3>Why do environmental projects stop working when donors leave?</h3>
+        <p>Diagnosed why UNDP environmental projects consistently lost impact after donor exit. Synthesized 100+ evaluations, identified gaps in existing frameworks, and designed a portfolio-level M&amp;E strategy for 30 projects &mdash; including 16 new sustainability indicators built to work within real monitoring budgets.</p>
+        <div class="wc-tags"><span class="wc-tag">M&amp;E Design</span><span class="wc-tag">Indicator Development</span><span class="wc-tag">Environmental Policy</span></div>
+      </div>
+      <div class="work-card" data-cat="consulting research">
+        <div class="wc-top"><div class="wc-org">Catholic Relief Services &mdash; Malawi</div><div class="wc-year">2021</div></div>
+        <h3>Two evaluations, opposite conclusions &mdash; what went wrong?</h3>
+        <p>Led 8 weeks of qualitative field research &mdash; 28 focus groups, 40 key informant interviews &mdash; to resolve why two evaluations of the same national program reached opposite conclusions. The core issue was methodological: different proxies being treated as equivalent. Delivered recommendations, case studies, and a policy brief.</p>
+        <div class="wc-tags"><span class="wc-tag">Qualitative Research</span><span class="wc-tag">Impact Evaluation</span><span class="wc-tag">Policy Brief</span></div>
+      </div>
+      <div class="work-card" data-cat="research">
+        <div class="wc-top"><div class="wc-org">Food and Agriculture Organization &mdash; Uganda</div><div class="wc-year">2021&ndash;2022</div></div>
+        <h3>What does permanent settlement actually look like? Refugee integration in Uganda</h3>
+        <p>Mixed-methods research on how economic integration works between refugee settlements and host communities in Uganda &mdash; a country with an unusually generous refugee policy granting permanent settlement, land rights, and work permits. Served as data analyst and qualitative research lead. Published in the Journal of Development Studies.</p>
+        <div class="wc-tags"><span class="wc-tag">Mixed Methods</span><span class="wc-tag">Refugee Policy</span><span class="wc-tag">Uganda</span><span class="wc-tag">Published</span></div>
+        <div style="margin-top:1rem"><button class="btn btn-outline" style="font-size:0.7rem" onclick="showPage('cv');setTimeout(function(){var pubs=document.querySelectorAll('.cv-block-title');for(var i=0;i<pubs.length;i++){if(pubs[i].textContent.includes('Publications')){pubs[i].scrollIntoView({behavior:'smooth'});break;}}},200)">View publications &rarr;</button></div>
+      </div>
+      <div class="work-card" data-cat="teaching">
+        <div class="wc-top"><div class="wc-org">Yale School of the Environment</div><div class="wc-year">2022&ndash;present</div></div>
+        <h3>Teaching Fellow across energy, technology, and climate finance</h3>
+        <p>Supporting students and faculty across three graduate and undergraduate courses: Energy Economics and Policy (Prof. Ken Gillingham), Disruptive Technology and Responsible Innovation (Prof. Kathryn Guarini), and Financing Climate Adaptation (Prof. Pradeep Kurukulasuriya).</p>
+        <div class="wc-tags"><span class="wc-tag">Teaching</span><span class="wc-tag">Energy Economics</span><span class="wc-tag">Climate Finance</span></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-rule">Dissertation</div>
+    <div class="dissertation-box">
+      <h3>Dissertation</h3>
+      <h4>Investment, constraints, and what holds progress back</h4>
+      <p>My dissertation investigates what happens when you remove one barrier to investment, but progress still falls short of expectations. Using a large-scale property rights reform in Benin, I study whether farmers invested more once land tenure became more secure. More broadly, the project explores how multiple constraints interact and why solving one problem often fails to unlock the change we expect. While the setting is agricultural development, the same questions arise in energy, climate, and other sectors where investment is critical to long-term progress.</p>
+      <div style="margin-top:1rem"><button class="btn" style="font-size:0.7rem;background:rgba(255,255,255,0.12);color:white;border:1px solid rgba(255,255,255,0.3);font-family:var(--sans)" onclick="showPage('cv');setTimeout(function(){var pubs=document.querySelectorAll('.cv-block-title');for(var i=0;i<pubs.length;i++){if(pubs[i].textContent.includes('Publications')){pubs[i].scrollIntoView({behavior:'smooth'});break;}}},200)">View publications &rarr;</button></div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-rule" style="margin-bottom:0.75rem">Hard skills</div>
+    <div class="hard-skills">
+      <div class="skill-item"><div class="skill-item-label">Statistical</div><div class="skill-item-val">R / RStudio, STATA</div></div>
+      <div class="skill-item"><div class="skill-item-label">Spatial</div><div class="skill-item-val">GIS, Google Earth Engine</div></div>
+      <div class="skill-item"><div class="skill-item-label">Methods</div><div class="skill-item-val">Causal inference, DiD, RDD, IV</div></div>
+      <div class="skill-item"><div class="skill-item-label">Evaluation</div><div class="skill-item-val">Impact eval, M&amp;E, additionality</div></div>
+      <div class="skill-item"><div class="skill-item-label">Data</div><div class="skill-item-val">Admin &amp; remote sensing datasets</div></div>
+      <div class="skill-item"><div class="skill-item-label">Languages</div><div class="skill-item-val">English (native), French (professional)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CV -->
+<div id="cv" class="page">
+  <div class="wrap">
+    <div class="eyebrow">CV &amp; Resume</div>
+    <h2 class="page-title">Experience &amp;<br><em>Credentials</em></h2>
+    <div class="cv-dl-row">
+      <a class="cv-dl-card" href="academic-cv.pdf" target="_blank">
+        <div class="cv-dl-icon">&#8659;</div>
+        <div class="cv-dl-info"><strong>Academic CV</strong><span>Full research record, publications, teaching</span></div>
+      </a>
+      <a class="cv-dl-card" href="consulting-resume.pdf" target="_blank">
+        <div class="cv-dl-icon">&#8659;</div>
+        <div class="cv-dl-info"><strong>Consulting Resume</strong><span>Professional experience, projects, skills</span></div>
+      </a>
+    </div>
+    <div class="cv-block">
+      <div class="cv-block-title">Education</div>
+      <div class="cv-row"><div class="cv-row-year">2022&ndash;2027<br>(expected)</div><div class="cv-row-body"><h4>PhD, Environmental Economics &amp; Policy</h4><div class="cv-org">Yale University, School of the Environment</div><p>Dissertation: investment constraints and land tenure in Benin. Methods: causal inference, GIS, remote sensing.</p></div></div>
+      <div class="cv-row"><div class="cv-row-year">2020&ndash;2022</div><div class="cv-row-body"><h4>Master of Global Affairs, Sustainable Development</h4><div class="cv-org">University of Notre Dame, Keough School of Global Affairs</div></div></div>
+      <div class="cv-row"><div class="cv-row-year">2014&ndash;2018</div><div class="cv-row-body"><h4>BS, Civil Engineering (Honors)</h4><div class="cv-org">Santa Clara University, School of Engineering</div><p>Richard J. Riordan Award for Community Service &middot; Humanitarian Award</p></div></div>
+    </div>
+    <div class="cv-block">
+      <div class="cv-block-title">Teaching</div>
+      <div class="cv-row">
+        <div class="cv-row-year">2022&ndash;present</div>
+        <div class="cv-row-body">
+          <h4>Teaching Fellow</h4>
+          <div class="cv-org">Yale School of the Environment</div>
+          <ul class="teaching-list">
+            <li>ENV 800: Energy Economics and Policy <em>&mdash; Graduate &middot; Prof. Ken Gillingham</em></li>
+            <li>ENAS 2170: Disruptive Technology and Responsible Innovation <em>&mdash; Undergraduate &middot; Prof. Kathryn Guarini</em></li>
+            <li>ENV 850: Financing Climate Adaptation <em>&mdash; Graduate &middot; Prof. Pradeep Kurukulasuriya</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="cv-block">
+      <div class="cv-block-title">Professional Experience</div>
+      <div class="cv-row"><div class="cv-row-year">2022&ndash;present</div><div class="cv-row-body"><h4>Doctoral Researcher</h4><div class="cv-org">Yale University</div><p>Investment constraints, land tenure, causal inference. Policy-facing research across development economics and environmental policy.</p></div></div>
+      <div class="cv-row"><div class="cv-row-year">2023&ndash;2026</div><div class="cv-row-body"><h4>Online Learning Associate</h4><div class="cv-org">Center for Business and Environment at Yale (CBEY)</div><p>Content strategy, curriculum, and program management for 10-month clean energy certificate. 120 participants, 6-member TA team.</p></div></div>
+      <div class="cv-row"><div class="cv-row-year">2023&ndash;2024</div><div class="cv-row-body"><h4>Evaluation Strategy Consultant</h4><div class="cv-org">United Nations Development Programme</div><p>M&amp;E strategy for 30-project environmental portfolio. 16 new sustainability indicators aligned with donor requirements.</p></div></div>
+      <div class="cv-row"><div class="cv-row-year">2021</div><div class="cv-row-body"><h4>Strategy Consultant &amp; Research Lead</h4><div class="cv-org">Catholic Relief Services &mdash; Lilongwe, Malawi</div><p>Led qualitative field research (28 FGDs, 40 KIIs) to evaluate national aid program and resolve contradictory assessments.</p></div></div>
+      <div class="cv-row"><div class="cv-row-year">2021&ndash;2022</div><div class="cv-row-body"><h4>Data Analyst &amp; Qualitative Research Lead</h4><div class="cv-org">Food and Agriculture Organization &mdash; Uganda</div><p>Mixed-methods research on refugee-host community economic integration. Published in Journal of Development Studies.</p></div></div>
+      <div class="cv-row"><div class="cv-row-year">2019&ndash;2020</div><div class="cv-row-body"><h4>Sustainable Agriculture Volunteer</h4><div class="cv-org">Peace Corps &mdash; Coussi, Benin</div><p>Environmental programs for 175+ students in French. Service ended early due to COVID-19 evacuation.</p></div></div>
+    </div>
+    <div class="cv-block">
+      <div class="cv-block-title">Publications</div>
+      <div class="pub-entry">
+        <div class="pub-title">Economic Integration between Refugee Settlements and Host Communities</div>
+        <div class="pub-authors"><strong>Oliver, Lauren</strong>, Marco D&rsquo;Errico, and Paul Winters</div>
+        <div class="pub-journal">The Journal of Development Studies, 60(3): 360&ndash;79, 2024</div>
+        <div class="pub-doi"><a href="https://doi.org/10.1080/00220388.2023.2282363" target="_blank">doi.org/10.1080/00220388.2023.2282363</a></div>
+      </div>
+      <div class="pub-entry">
+        <div class="pub-title">Transfers as a Means to Mitigate COVID-19 Impacts on Food Security: Evidence from Refugee and Host Communities Uganda</div>
+        <div class="pub-authors">Errico, Marco d&rsquo;, Ellestina Jumbe, <strong>Lauren Oliver</strong>, Rebecca Pietrelli, Irene Staffieri, and Paul Winters</div>
+        <div class="pub-journal">The Journal of Development Studies, 60(3): 432&ndash;56, 2024</div>
+        <div class="pub-doi"><a href="https://doi.org/10.1080/00220388.2023.2282368" target="_blank">doi.org/10.1080/00220388.2023.2282368</a></div>
+      </div>
+    </div>
+    <div class="cv-block">
+      <div class="cv-block-title">Leadership &amp; Service</div>
+      <div class="cv-row"><div class="cv-row-year">2024&ndash;2027</div><div class="cv-row-body"><h4>Advisory Council Member</h4><div class="cv-org">Keough School of Global Affairs, University of Notre Dame</div><p>One of two alumni on a 20-member board advising on strategic priorities and donor engagement.</p></div></div>
+    </div>
+    <div class="cv-block">
+      <div class="cv-block-title">Technical Skills</div>
+      <div class="hard-skills">
+        <div class="skill-item"><div class="skill-item-label">Statistical</div><div class="skill-item-val">R / RStudio, STATA</div></div>
+        <div class="skill-item"><div class="skill-item-label">Spatial</div><div class="skill-item-val">GIS, Google Earth Engine</div></div>
+        <div class="skill-item"><div class="skill-item-label">Methods</div><div class="skill-item-val">Causal inference, DiD, RDD, IV</div></div>
+        <div class="skill-item"><div class="skill-item-label">Evaluation</div><div class="skill-item-val">Impact eval, M&amp;E, additionality</div></div>
+        <div class="skill-item"><div class="skill-item-label">Data</div><div class="skill-item-val">Admin &amp; remote sensing datasets</div></div>
+        <div class="skill-item"><div class="skill-item-label">Languages</div><div class="skill-item-val">English (native), French (professional)</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPEN TABS -->
+<div id="reading" class="page">
+  <div class="wrap">
+    <div class="eyebrow">Open tabs</div>
+    <div class="tabs-header">
+      <h2 class="page-title" style="margin-bottom:0">What I&rsquo;m<br><em>reading lately</em></h2>
+      <span class="tabs-updated" id="last-updated"></span>
+    </div>
+    <p class="lede" style="margin-top:1.5rem">I rarely finish a week with fewer than 20 tabs open. These are the pieces that survived the purge.</p>
+    <div class="tabs-grid">
+      <div class="tab-card">
+        <div class="tab-icon">RFF</div>
+        <div>
+          <div class="tab-source">Resources for the Future</div>
+          <div class="tab-title"><a href="https://www.resources.org/common-resources/is-accuracy-the-right-criterion-for-updating-greenhouse-gas-accounting-standards/" target="_blank">Aaron Bergman&rsquo;s Blog Series on Updates to the Greenhouse Gas Protocol&rsquo;s Accounting Standards</a></div>
+          <div class="tab-note">One of the clearest examples I&rsquo;ve seen of why measurement design matters. Bergman explores how well-intentioned updates to the GHG Protocol may create incentives that undermine the very outcomes the protocol hopes to encourage.</div>
+          <span class="tab-tag">Carbon Accounting</span>
+        </div>
+      </div>
+      <div class="tab-card">
+        <div class="tab-icon">UCLA</div>
+        <div>
+          <div class="tab-source">UCLA IoES + Resources Radio</div>
+          <div class="tab-title"><a href="https://www.ioes.ucla.edu/article/managing-the-transition-to-clean-energy-takes-more-than-technology/" target="_blank">Managing the Clean Energy Transition Takes More Than Technology &mdash; Emily Grubert</a></div>
+          <div class="tab-note">Grubert&rsquo;s work on the &ldquo;mid-transition&rdquo; fills a gap in the energy conversation. She focuses not just on where we&rsquo;re going, but how we get there&mdash;and the difficult tradeoffs involved in maintaining reliable energy systems while reducing emissions. It&rsquo;s one of the most pragmatic frameworks I&rsquo;ve encountered for thinking about the transition.</div>
+          <span class="tab-tag">Energy Transition</span>
+        </div>
+      </div>
+      <div class="tab-card">
+        <div class="tab-icon">&#9889;</div>
+        <div>
+          <div class="tab-source">Volts</div>
+          <div class="tab-title"><a href="https://www.volts.wtf/p/who-is-paying-for-all-that-data-center" target="_blank">Who Is Paying for All That Data Center Power?</a></div>
+          <div class="tab-note">The most interesting questions aren&rsquo;t whether data centers are &ldquo;good&rdquo; or &ldquo;bad,&rdquo; but how their costs and benefits are distributed. This piece does an excellent job unpacking the often-overlooked interactions between infrastructure investment, electricity markets, and equity.</div>
+          <span class="tab-tag">Grid &amp; Equity</span>
+        </div>
+      </div>
+      <div class="tab-card">
+        <div class="tab-icon">WSJ</div>
+        <div>
+          <div class="tab-source">Wall Street Journal</div>
+          <div class="tab-title"><a href="https://www.wsj.com/tech/ai/the-american-rebellion-against-ai-is-gaining-steam-94b72529" target="_blank">The American Rebellion Against AI Is Gaining Steam</a></div>
+          <div class="tab-note">One of the recurring lessons in policy and technology is that technical feasibility and projected profits don&rsquo;t guarantee public support. This piece highlights the growing gap between what innovators assume people will accept and what communities are actually willing to embrace.</div>
+          <span class="tab-tag">Technology &amp; Tradeoffs</span>
+        </div>
+      </div>
+    </div>
+    <div class="callout">Have a recommendation? Especially interested in political economy of energy transitions, carbon market design, and development-climate tensions. <strong>lauren.oliver@yale.edu</strong></div>
+  </div>
+</div>
+
+<footer>
+  <span>Lauren A. Oliver &middot; Yale School of the Environment &middot; New Haven, CT</span>
+  <div class="footer-right">
+    <a href="mailto:lauren.oliver@yale.edu">lauren.oliver@yale.edu</a>
+    <a href="https://linkedin.com/in/lauren-oliver" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l=>{
+    if(l.getAttribute('onclick')&&l.getAttribute('onclick').includes("'"+id+"'"))l.classList.add('active');
+  });
+  window.scrollTo(0,0);
+}
+function toggleWork(cat,btn){
+  document.querySelectorAll('.toggle-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.work-card').forEach(c=>{
+    var cats=(c.dataset.cat||'').split(' ');
+    c.style.display=(cat==='all'||cats.indexOf(cat)>-1)?'block':'none';
+  });
+}
+function scrollCarousel(idx){
+  var track=document.getElementById('carousel');
+  var slide=track.children[idx];
+  track.scrollTo({left:slide.offsetLeft,behavior:'smooth'});
+  document.querySelectorAll('.carousel-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+}
+(function(){
+  var el=document.getElementById('last-updated');
+  if(el){
+    var d=new Date();
+    var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    el.textContent='Last updated '+months[d.getMonth()]+' '+d.getFullYear();
+  }
+})();
+</script>
+</body>
+</html>
